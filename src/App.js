@@ -3,22 +3,71 @@
 */
 import React, { Component } from "react";
 // import {Button,message} from 'antd'
-import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import Login from "./pages/login/login.jsx";
-import Admin from "./pages/admin/admin.jsx";
+export default class App extends Component {
 
-class App extends Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/" component={Admin} />
-        </Switch>
-      </BrowserRouter>
-    );
+  state = {
+    count:0
   }
+
+  constructor(props){
+    super(props)
+    this.numberRef = React.createRef()
+  }
+  increment = ()=>{
+    const number = this.numberRef.current.value * 1
+    this.setState(state => ({
+      count: state.count + number
+    }))
+  }
+
+  decrement = ()=>{
+    const number = this.numberRef.current.value * 1
+    this.setState(state => ({
+      count: state.count - number
+    }))
+  }
+
+  incrementIfOdd = ()=>{
+    const number = this.numberRef.current.value * 1
+    if(this.state.count % 2 ===1 ){
+      this.setState(state => ({
+        count: state.count + number
+      }))
+    }
+  }
+
+  incrementAsync = ()=>{
+    const number = this.numberRef.current.value * 1
+    setTimeout(()=>{
+      this.setState(state => ({
+        count: state.count + number
+      }))
+    },3000)
+      
+  }
+
+  
+
+  render() {
+    const count  = this.state.count
+    return  (
+      <div>
+        <p>click {count} times</p><br/>
+        <div>
+          <select ref = {this.numberRef}>
+            <option value='1'>1</option>
+            <option value='2'>2</option>
+            <option value='3'>3</option>
+          </select><br/>
+          <button onClick={this.increment}>+</button>&nbsp;&nbsp;
+          <button onClick={this.decrement}>-</button>&nbsp;&nbsp;
+          <button onClick={this.incrementIfOdd}>increment if odd</button>&nbsp;&nbsp;
+          <button onClick={this.incrementAsync}>increment async</button>
+        </div>
+      </div>
+
+    )
+}
 }
 
-export default App;
