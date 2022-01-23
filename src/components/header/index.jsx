@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import {withRouter} from 'react-router-dom'
 import { Modal} from 'antd';
+import { connect } from "react-redux";
+
 
 import LinkButton from '../link-button/index'
 import { reqWeather } from "../../api/index";
@@ -91,7 +93,9 @@ class Header extends Component {
     const { currentTime, dayPictureUrl, weather } = this.state;
     const username = memoryUtils.user.username
 
-    const title = this.getTitle()
+    //根据当前需要显示title
+    // const title = this.getTitle()
+    const title = this.props.headTitle
 
     return (
       <div className="header">
@@ -116,4 +120,9 @@ class Header extends Component {
   }
 }
 
-export default withRouter(Header)
+export default connect(
+  state => ({headTitle:state.headTitle}),
+  {
+
+  }
+)(withRouter(Header)) 
