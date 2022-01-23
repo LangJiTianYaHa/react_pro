@@ -5,14 +5,16 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import App from './containers/App'
-import store from './redux/store'
-import {Provider} from 'react-redux'
+import memoryUtils from './utils/memoryUtils'
+import storageUtils  from './utils/storageUtils'
+import App from './App'
 
-// 将store 传递给 provider 组件
+// 如果 local 中保存了 user, 将 user 保存到内存中
+const user = storageUtils.getUser()
+if(user && user._id){
+  memoryUtils.user = user
+}
 
-ReactDOM.render((
-  <Provider store={store}>
-  <App/>
-  </Provider>
-  ), document.getElementById('root'))
+
+
+ReactDOM.render(<App/>,document.getElementById('root'))

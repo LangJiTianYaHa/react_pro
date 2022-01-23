@@ -4,7 +4,7 @@
 import React, { Component } from "react";
 import PropTypes from 'prop-types'
 
-export default class App extends Component {
+export default class Counter extends Component {
 
 
   
@@ -13,7 +13,8 @@ export default class App extends Component {
     // store:PropTypes.object.isRequired
     count:PropTypes.number.isRequired,
     increment:PropTypes.func.isRequired,
-    decrement:PropTypes.func.isRequired
+    decrement:PropTypes.func.isRequired,
+    incrementAsync:PropTypes.func.isRequired,
   }
 
   constructor(props){
@@ -47,9 +48,10 @@ export default class App extends Component {
 
   incrementAsync = ()=>{
     const number = this.numberRef.current.value * 1
-    setTimeout(()=>{
+    /* setTimeout(()=>{
       this.props.increment(number)
-    },2000)
+    },2000) */
+    this.props.incrementAsync(number)
     
   }
 

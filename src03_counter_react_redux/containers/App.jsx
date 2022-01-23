@@ -24,6 +24,17 @@ import {increment, decrement} from '../redux/actions'
   }
 
 } */
+
+// 指定向Counter传入哪些一般属性(属性值的来源就是store中的state)
+// const mapStateToProps = (state) => ({count: state})
+// 指定向Counter传入哪些函数属性
+/*如果是函数, 会自动调用得到对象, 将对象中的方法作为函数属性传入UI组件*/
+/*const mapDispatchToProps = (dispatch) => ({
+  increment: (number) => dispatch(increment(number)),
+  decrement: (number) => dispatch(decrement(number)),
+})*/
+
+
 export default connect(
   state => ({count:state}),
   {increment,decrement},
