@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import { Form, Input, Button ,Icon,message} from "antd";
+import { Form, Input, Button ,Icon} from "antd";
 import "./login.less";
 import logo from "../../assets/images/logo.png";
-import { reqLogin } from "../../api/index";
-import memoryUtils from '../../utils/memoryUtils'
-import storageUtils  from '../../utils/storageUtils'
 import { Redirect } from "react-router-dom";
+import{connect} from 'react-redux'
+import {login} from '../../redux/actions'
 
  class Login extends Component {
 
@@ -25,7 +24,7 @@ import { Redirect } from "react-router-dom";
         //使用asycy await简化写法
         const {username,password} = values
         
-        const result = await reqLogin(username,password)
+        /* const result = await reqLogin(username,password)
         console.log('请求成功了！',result)
         if(result.status === 0){
           //登陆成功  跳转到登录页面
@@ -42,7 +41,9 @@ import { Redirect } from "react-router-dom";
         }else{
           //登陆失败提示失败信息
           message.error(result.msg)
-        }
+        } */
+        // 调用分发异步action的函数 发登录的异步请求 有了结果后更新状态
+        this.props.login(username,password)
       }else{
         console.log('校验失败！')
       }
@@ -76,10 +77,13 @@ import { Redirect } from "react-router-dom";
   render() {
 
     //如果用户已经登陆 自动跳转到管理界面
-    const user =  memoryUtils.user
+    const user =  this.props.user
     if(user && user._id){
-      return  <Redirect to  = '/'/>
+      return  <Redirect to  = '/home'/>
     }
+
+    // const errorMsg= this.props.user.errorMsg
+
 
     const form  = this.props.form
     const { getFieldDecorator } = form;
@@ -92,6 +96,7 @@ import { Redirect } from "react-router-dom";
         </header>
 
         <section className="login-content">
+          <div className={user.errorMsg ? 'error-msg show' : 'error-msg'}>{user.errorMsg}</div>
           <h2>用户登陆</h2>
           <Form onSubmit={this.handleSubmit} className="login-form">
             {/*
@@ -157,12 +162,13 @@ import { Redirect } from "react-router-dom";
     );
   }
 }
-
 /* 
 收集数据
 表单验证
-
 */
 const WrapLogin = Form.create()(Login);
-export default WrapLogin;
+export default  connect(
+  state => ({user:state.user}),
+  {login}
+)(WrapLogin) ;
 

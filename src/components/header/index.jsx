@@ -9,8 +9,7 @@ import { reqWeather } from "../../api/index";
 import menuList from "../../config/menuConfig";
 
 import { formateDate } from "../../utils/dateUtils";
-import memoryUtils from "../../utils/memoryUtils";
-import storageUtils from "../../utils/storageUtils";
+import {logout} from '../../redux/actions'
 import "./index.less";
 
 class Header extends Component {
@@ -61,11 +60,7 @@ class Header extends Component {
       content: '确定退出吗？',
       onOk:()=>{
         // console.log('OK');
-        //移出保存的user
-        storageUtils.removeUser()
-        memoryUtils.user = {}
-        //跳转到login
-        this.props.history.replace('/login')
+        this.props.logout()
       },
       
     });
@@ -91,7 +86,7 @@ class Header extends Component {
 
   render() {
     const { currentTime, dayPictureUrl, weather } = this.state;
-    const username = memoryUtils.user.username
+    const username = this.props.user.username
 
     //根据当前需要显示title
     // const title = this.getTitle()
@@ -121,8 +116,8 @@ class Header extends Component {
 }
 
 export default connect(
-  state => ({headTitle:state.headTitle}),
+  state => ({headTitle:state.headTitle,user:state.user}),
   {
-
+    logout
   }
 )(withRouter(Header)) 
