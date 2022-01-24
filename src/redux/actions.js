@@ -4,7 +4,7 @@
 异步action：   函数 dispatch => {}
  */
 
-// import { message } from 'antd'
+import { message } from 'antd'
 import { reqLogin } from '../api'
 import storageUtils from '../utils/storageUtils'
 import {SET_HEAD_TITLE,RECEIVE_USER,SHOW_ERROR_MSG,RESET_USER} from './action-types'
@@ -39,6 +39,7 @@ export const login = (username,password) =>{
       storageUtils.saveUser(user)
       //分发接收用户的同步action
       dispatch(receiveUser(user))
+      message.success('登陆成功')
     }else{
       //2.2如果失败 分发失败的同步action
       const msg = result.msg
@@ -56,5 +57,6 @@ export const logout = () =>{
   //删除local中的user
   storageUtils.removeUser()
   //返回action对象
+  message.success('退出登录成功')
   return {type:RESET_USER}
 }
