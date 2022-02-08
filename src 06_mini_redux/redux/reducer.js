@@ -1,9 +1,13 @@
 /*
 reducer 函数: 根据旧的state 和指定的action 处理返回新的state
 */
-import {combineReducers} from '../lib/redux'
-import {INCREMENT,DECREMENT} from './action-types'
 
+import {INCREMENT,DECREMENT} from './action-types'
+import {combineReducers} from '../lib/redux'
+
+/* 
+ 管理count状态数据的reducer函数
+*/
  function count(state = 1,action){
   console.log('count()','state:',state,'action',action)
 
