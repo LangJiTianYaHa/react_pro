@@ -7,6 +7,7 @@ import {
   reqUpdateStatus,
 } from "../../api/index";
 import { PAGE_SIZE } from "../../utils/constants";
+import memoryUtils from "../../utils/memoryUtils";
 
 const Option = Select.Option;
 
@@ -66,13 +67,15 @@ export default class ProductHome extends Component {
             {/* <LinkButton onClick ={() => this.props.history.push('/product/detail',{product})}>详情</LinkButton> */}
             <LinkButton
               onClick={() =>
-                this.props.history.push("/product/detail", { product })
+                /* this.props.history.push("/product/detail", { product }) */
+                this.showDetail(product)
               }
             >
               详情
             </LinkButton>
             <LinkButton
-              onClick={() => this.props.history.push("/product/addupdate",product)}
+              onClick={() => this.showUpdate(product)
+            }
             >
               修改
             </LinkButton>
@@ -81,6 +84,25 @@ export default class ProductHome extends Component {
       },
     ];
   };
+
+  /* 
+  显示商品详情页面
+  */
+  showDetail = (product)=>{
+    //缓存product对象 ===》  给detail组件使用
+    memoryUtils.product = product
+    this.props.history.push("/product/detail")
+
+  }
+  /* 
+  显示修改商品页面
+  */
+  showUpdate = (product)=>{
+    //缓存product对象 ===》  给detail组件使用
+    memoryUtils.product = product
+    this.props.history.push("/product/addupdate")
+
+  }
 
   /* 
    获取指定页码的列表数据显示

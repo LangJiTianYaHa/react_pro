@@ -15,6 +15,7 @@ import Line from '../charts/line'
 import Pie from '../charts/pie'
 import Order from '../order/order'
 import {connect} from 'react-redux'
+import NotFound from "../not-found/not-found";
 
 
 const {  Footer, Sider, Content } = Layout;
@@ -35,6 +36,7 @@ const {  Footer, Sider, Content } = Layout;
           <Header>Header</Header>
           <Content style={{ margin: 20,backgroundColor: '#fff'}}>
             <Switch>
+              <Redirect from='/' to = '/home'  exact/>
               <Route path='/home' component= {Home}></Route>
               <Route path='/category' component= {Category}></Route>
               <Route path='/product' component= {Product}></Route>
@@ -44,7 +46,8 @@ const {  Footer, Sider, Content } = Layout;
               <Route path='/charts/line' component= {Line}></Route>
               <Route path='/charts/pie' component= {Pie}></Route>
               <Route path='/order' component= {Order}></Route>
-              <Redirect to = '/home'/>
+              <Route component={NotFound}/>  
+              {/* 上面没有一个匹配  显示404界面 */}
 
             </Switch>
 

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+// import { Chart, Interval, Tooltip } from 'bizcharts'
 import './home.less'
+
 
 export default class Home extends Component {
   render() {
@@ -9,4 +11,5 @@ export default class Home extends Component {
       </div>
     )
   }
+
 }

@@ -4,14 +4,15 @@
 */
 import React from 'react'
 import ReactDOM from 'react-dom'
+
+import App from './containers/App'
 import store from './redux/store'
+import {Provider} from './lib/react-redux'
 
-import App from './App'
-import {Provider} from 'react-redux'
+// 将store 传递给 provider 组件
 
-// 将App组件标签渲染到index页面的div上
 ReactDOM.render((
   <Provider store={store}>
-    <App />
+  <App/>
   </Provider>
-), document.getElementById('root'))
+  ), document.getElementById('root'))
